@@ -1,0 +1,7 @@
+@extends('layouts.app')
+@section('title','Files & Matching')
+@section('content')
+<div class="mb-4"><h1>Files & Matching</h1><p class="text-secondary">Create a workspace to match candidates across its posts. Workspaces keep separate recruitment datasets apart.</p></div>
+<div class="card mb-4"><div class="card-body"><form method="post" action="{{ route('matching.store') }}" class="row g-3">@csrf<div class="col-md-9"><label class="form-label required">Workspace title</label><input name="title" class="form-control" maxlength="255" value="{{ old('title') }}" required placeholder="Recruitment / advertisement reference"></div><div class="col-md-3 d-flex align-items-end"><button class="btn btn-primary w-100">Create workspace</button></div></form></div></div>
+<div class="card"><div class="table-responsive"><table class="table table-bordered table-vcenter"><thead><tr><th>#</th><th>Workspace</th><th>Posts</th><th>Candidate rows</th><th></th></tr></thead><tbody>@forelse($batches as $batch)<tr><td>{{ $batches->firstItem()+$loop->index }}</td><td>{{ $batch->title }}</td><td>{{ $batch->posts_count }}</td><td>{{ $batch->records_count }}</td><td><a class="btn btn-sm btn-outline-primary" href="{{ route('matching.show',$batch) }}">Open</a></td></tr>@empty<tr><td colspan="5" class="text-center text-secondary">Create your first workspace to upload post files.</td></tr>@endforelse</tbody></table></div><div class="card-footer">{{ $batches->links() }}</div></div>
+@endsection
