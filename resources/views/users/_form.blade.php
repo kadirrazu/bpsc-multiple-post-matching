@@ -121,13 +121,13 @@
             @endunless
         </label>
 
-        <input
+        <div class="password-control"><input
             type="password"
             id="password"
             name="password"
             class="form-control @error('password') is-invalid @enderror"
             @required(! $editing)
-        >
+        ><button type="button" class="password-toggle" data-password-toggle="password" aria-controls="password" aria-label="Show password" aria-pressed="false"><i class="bi bi-eye" aria-hidden="true"></i></button></div>
 
         @if ($editing)
             <small class="form-hint">
@@ -147,13 +147,13 @@
             Confirm Password
         </label>
 
-        <input
+        <div class="password-control"><input
             type="password"
             id="password_confirmation"
             name="password_confirmation"
             class="form-control"
             @required(! $editing)
-        >
+        ><button type="button" class="password-toggle" data-password-toggle="password_confirmation" aria-controls="password_confirmation" aria-label="Show password" aria-pressed="false"><i class="bi bi-eye" aria-hidden="true"></i></button></div>
     </div>
 
     <div class="col-12">

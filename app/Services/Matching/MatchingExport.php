@@ -134,7 +134,7 @@ class MatchingExport
         $sheet->freezePane('A2');
         $sheet->setAutoFilter('A1:'.$last.(count($table['rows']) + 1));
         $sheet->getStyle('A1:'.$last.'1')->getFont()->setBold(true);
-        $sheet->getStyle('A1:'.$last.'1')->getFill()->setFillType('solid')->getStartColor()->setARGB('FFE7F0ED');
+        $sheet->getStyle('A1:'.$last.'1')->getFill()->setFillType('solid')->getStartColor()->setARGB('FFF0EBF8');
         for ($c = 1; $c <= count($table['headers']); $c++) {
             $sheet->getColumnDimension(Coordinate::stringFromColumnIndex($c))->setWidth(22);
         }

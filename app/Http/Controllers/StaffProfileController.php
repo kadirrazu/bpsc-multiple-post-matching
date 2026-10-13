@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserRole;
 use App\Models\Designation;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -18,11 +19,11 @@ class StaffProfileController extends Controller
     {
         $user = $request->user();
         $data = $request->validate([
-            'name' => 'required|string|max:255', 'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
+            'name' => $user->role === UserRole::Operator ? 'prohibited' : 'required|string|max:255', 'email' => $user->role === UserRole::Operator ? ['prohibited'] : ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
             'designation_id' => ['required', 'integer', Rule::exists('designations', 'id')->where('is_active', true)],
             'role' => 'prohibited', 'is_active' => 'prohibited', 'user_id' => 'prohibited', 'id' => 'prohibited', 'deleted_at' => 'prohibited',
         ]);
-        if ($data['email'] !== $user->email) {
+        if (isset($data['email']) && $data['email'] !== $user->email) {
             $user->email_verified_at = null;
         }
         $user->fill($data)->save();

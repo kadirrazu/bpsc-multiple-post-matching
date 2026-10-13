@@ -72,7 +72,7 @@
                         Password
                     </label>
 
-                    <input
+                    <div class="password-control"><input
                         type="password"
                         id="password"
                         name="password"
@@ -80,7 +80,7 @@
                         placeholder="Enter your password"
                         autocomplete="current-password"
                         required
-                    >
+                    ><button type="button" class="password-toggle" data-password-toggle="password" aria-controls="password" aria-label="Show password" aria-pressed="false"><i class="bi bi-eye" aria-hidden="true"></i></button></div>
 
                     @error('password')
                         <div class="invalid-feedback">

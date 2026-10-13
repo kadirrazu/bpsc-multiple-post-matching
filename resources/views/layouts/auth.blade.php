@@ -14,6 +14,7 @@
         @yield('title', 'Authentication') | {{ config('app.name') }}
     </title>
 
+    @include('shared.favicon')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     @stack('styles')
@@ -23,7 +24,7 @@
     <div class="page page-center">
         <div class="container container-tight py-4">
             <div class="auth-brand product-name mb-2"><i class="bi bi-intersect" aria-hidden="true"></i> 
-                BPSC Multiple Post Matching System
+                Multiple Post Matching System
             </div>
 
             <div class="auth-subtitle mb-4">

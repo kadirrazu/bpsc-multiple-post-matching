@@ -4,8 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="theme-color" content="#2e7165">
+    
     <title>@yield('title', 'Post Matching') | {{ config('app.name') }}</title>
+    @include('shared.favicon')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
 </head>
@@ -15,9 +16,9 @@
         <div class="container-xl matching-masthead">
             <a href="{{ route('matching.index') }}" class="matching-product text-decoration-none">
                 <span class="brand-emblem"><i class="bi bi-intersect" aria-hidden="true"></i></span>
-                <span class="product-name">BPSC Multiple Post Matching System</span>
+                <span class="product-name">Multiple Post Matching System</span>
             </a>
-            <div class="matching-commission" lang="en"><strong>Bangladesh Public Service Commission</strong> (BPSC)</div>
+            <div class="matching-commission" lang="en"><strong>Bangladesh Public Service Commission (BPSC)</strong></div>
         </div>
         <nav class="navbar navbar-expand-md matching-navigation" aria-label="Main navigation">
             <div class="container-xl">

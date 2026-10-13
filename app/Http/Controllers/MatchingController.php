@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\UserRole;
 use App\Models\MatchingBatch;
 use App\Models\MatchingPost;
 use App\Models\MatchingRecord;
@@ -16,17 +17,50 @@ use Illuminate\Validation\ValidationException;
 
 class MatchingController extends Controller
 {
-    public function index()
+    public function index(Request $r)
     {
-        return view('matching.index', ['batches' => MatchingBatch::withCount(['posts', 'records'])->latest()->paginate(25)]);
+        return view('matching.index', ['batches' => MatchingBatch::when($r->user()->role === UserRole::Operator, fn ($q) => $q->where('created_by', $r->user()->id))->withCount(['posts', 'records'])->latest()->paginate(25)]);
     }
 
     public function store(Request $r)
     {
         $data = $r->validate(['title' => 'required|string|max:255']);
-        $batch = MatchingBatch::create($data);
+        $batch = MatchingBatch::create($data + ['created_by' => $r->user()->id]);
 
         return redirect()->route('matching.show', $batch)->with('success', 'Matching workspace created.');
+    }
+
+    public function edit(MatchingBatch $batch)
+    {
+        return view('matching.edit', compact('batch'));
+    }
+
+    public function update(Request $r, MatchingBatch $batch)
+    {
+        $data = $r->validate(['title' => 'required|string|max:255']);
+        DB::transaction(function () use ($batch, $data) {
+            $current = MatchingBatch::whereKey($batch->id)->lockForUpdate()->firstOrFail();
+            $current->update($data);
+        });
+
+        return redirect()->route('matching.index')->with('success', 'Workspace updated successfully.');
+    }
+
+    public function confirmDelete(MatchingBatch $batch)
+    {
+        return view('matching.delete', ['batch' => $batch, 'posts' => $batch->posts()->count(), 'records' => $batch->records()->count(), 'people' => $batch->people()->count()]);
+    }
+
+    public function destroy(Request $r, MatchingBatch $batch)
+    {
+        $r->validate(['confirmation' => ['required', Rule::in(['DELETE'])]]);
+        DB::transaction(function () use ($batch) {
+            $current = MatchingBatch::whereKey($batch->id)->lockForUpdate()->firstOrFail();
+            // Foreign keys cascade to posts, imported rows, review data and people.
+            $current->delete();
+        });
+
+        return redirect()->route('matching.index')->with('success', 'Workspace and all its imported and matching data deleted.');
     }
 
     public function show(MatchingBatch $batch)

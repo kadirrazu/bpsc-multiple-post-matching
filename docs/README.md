@@ -24,3 +24,11 @@ The root README is a stable project introduction and setup/command reference. On
 - [Release v1.0.8](releases/v1.0.8.md)
 
 - [Release v1.0.9](releases/v1.0.9.md)
+
+- [Release v1.1.0](releases/v1.1.0.md)
+
+- [Release v1.1.1](releases/v1.1.1.md)
+
+- [Release v1.1.2](releases/v1.1.2.md)
+
+- [Release v1.1.3](releases/v1.1.3.md)

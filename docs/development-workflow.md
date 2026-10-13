@@ -23,3 +23,5 @@ Run `composer install` if Composer dependency files change, and `npm ci` if npm 
 Run checks appropriate to the change: `php artisan test`, `npm run build`, and Blade compilation for view changes. Use `php artisan view:cache` to verify templates, then `php artisan view:clear` when resuming local development. Document runtime and database coverage in the release note.
 
 Update the footer version in `config/matching.php` for released patches. Keep matching behavior and stored source values unchanged during shell-only changes.
+
+For password-toggle changes, also run `node --test tests/ui/password-toggle.test.mjs`. Ownership changes require the included migration before route access.

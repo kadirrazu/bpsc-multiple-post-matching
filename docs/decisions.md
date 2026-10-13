@@ -59,3 +59,19 @@ Only shared uploaded headers plus reg_POSTCODE, user_POSTCODE, matching_post and
 ## 2026-10-12 — Matching post metadata in every mode
 
 Add matched_post_count to Combined/Unique. Add matching_post to Individual alongside its existing matched_post_count. Both list/count include the source post and all linked posts, in added-post order. This revises v1.0.8 only by adding the requested count.
+
+## 2026-10-13 — Operator workspace isolation
+
+Operators list/access/manage only their own created workspaces. Administrators manage all. Ownership is stamped server-side; legacy unowned workspaces remain admin-only. Operator self-service is limited to designation and password. Rename all product labels to Multiple Post Matching System, add password visibility controls and center non-Workspace list columns.
+
+## 2026-10-13 — Matching favicon and commission typography
+
+Use a matching-themed favicon in both layouts, with a replaced ICO fallback and versioned links. Header software/commission names share the same responsive font size and are fully bold, including (BPSC). Footer commission name is bold.
+
+## 2026-10-13 — Workspace edit/delete
+
+Workspace Actions include Open, Edit and Delete. Edit changes only the title, retaining owner and imported data. Delete requires an explicit DELETE confirmation and transactionally deletes the workspace with posts, imported rows, matching groups and review data through existing cascading foreign keys. Existing operator ownership restrictions apply to all new endpoints.
+
+## 2026-10-13 — Lavender project identity
+
+Use soft lavender branding to distinguish this project from the other BPSC applications: #7865a3 primary, light lavender header/navigation/footer and page tints, coordinated focus and button states, and lavender favicon. Keep semantic match/reject/warning/delete colors distinct. Layout widths, typography and functionality are unchanged.
